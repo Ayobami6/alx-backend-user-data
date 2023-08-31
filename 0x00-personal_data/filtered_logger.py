@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ filter datum module """
 
-from typing import List
+from typing import List, Tuple
 import re
 import logging
 
@@ -37,6 +37,8 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]) -> None:
+        """ Instance method
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -71,4 +73,3 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
-     
