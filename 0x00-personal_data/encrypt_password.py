@@ -2,7 +2,7 @@
 """ encrypts password """
 
 import bcrypt
-from bcrypt import hashpw
+from bcrypt import hashpw, checkpw
 
 
 def hash_password(password: str) -> str:
@@ -30,4 +30,4 @@ def is_valid(hashed_pssw: bytes, password: str) -> bool:
     Returns:
         bool: true or false
     """
-    return bcrypt.checkpw(password.encode(), hashed_pssw)
+    return checkpw(password.encode(), hashed_pssw)
