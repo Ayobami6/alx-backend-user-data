@@ -5,7 +5,7 @@ import bcrypt
 from bcrypt import hashpw, checkpw
 
 
-def hash_password(password: str) -> str:
+def hash_password(password: str) -> bytes:
     """ Hash password function
 
     Args:
@@ -15,8 +15,8 @@ def hash_password(password: str) -> str:
         str: encrypted password
     """
     # encode password
-    encoded_pssw = password.encode()
-    encrypted = hashpw(encoded_pssw, bcrypt.gensalt())
+    encoded_pssw: bytes = password.encode()
+    encrypted: bytes = hashpw(encoded_pssw, bcrypt.gensalt())
     return encrypted
 
 
