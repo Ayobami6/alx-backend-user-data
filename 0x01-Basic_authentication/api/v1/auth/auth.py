@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+""" Auth class
+"""
+
 from flask import request
 from typing import List, TypeVar
-from abc import ABC
 
 
-class Auth(ABC):
+class Auth:
     """ Authentication base class
     """
 
