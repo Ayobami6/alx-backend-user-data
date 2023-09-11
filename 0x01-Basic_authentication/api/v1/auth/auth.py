@@ -26,8 +26,11 @@ class Auth:
             return True
         if path in \
                 excluded_paths or path + '/' in \
-                excluded_paths or path.startswith("/api/v1/stat"):
+                excluded_paths:
             return False
+        for ex_path in excluded_paths:
+            if path.startswith(ex_path[:-1]):
+                return False
 
         return True
 
