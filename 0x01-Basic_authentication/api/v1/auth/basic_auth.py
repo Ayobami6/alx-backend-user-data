@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Basic Auth module
 """
-import auth
+from .auth import Auth
 import base64
 from typing import Tuple
 
 
-class BasicAuth(auth.Auth):
+class BasicAuth(Auth):
     """Basic auth class
     """
 
@@ -67,12 +67,3 @@ class BasicAuth(auth.Auth):
         email = decoded_base64_authorization_header.split(':')[0]
         password = decoded_base64_authorization_header[len(email) + 1:]
         return (email, password)
-
-
-a = BasicAuth()
-
-print(a.extract_user_credentials(None))
-print(a.extract_user_credentials(89))
-print(a.extract_user_credentials("Holberton School"))
-print(a.extract_user_credentials("Holberton:School"))
-print(a.extract_user_credentials("bob@gmail.com:toto1234"))
