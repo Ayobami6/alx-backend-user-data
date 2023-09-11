@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Basic Auth module
 """
-from .auth import Auth
+from auth import Auth
 import base64
 from typing import Tuple
 
@@ -51,19 +51,28 @@ class BasicAuth(Auth):
         except Exception:
             return None
 
-    def extrac_user_credentials(
-            self, decode_base64_authorization_header: str) -> Tuple[str]:
+    def extract_user_credentials(
+            self, decode_base64_authorization_header: str) -> (str, str):
         """ Extract user credentials
 
         Args:
             decode_base64_authorization_header (str): Description
         """
-        if decoded_base64_authorization_header is None:
-            return (None. None)
-        if not isinstance(decoded_base64_authorization_header, str):
+        if decode_base64_authorization_header is None:
             return (None, None)
-        if ':' not in decoded_base64_authorization_header:
+        if not isinstance(decode_base64_authorization_header, str):
             return (None, None)
-        email = decoded_base64_authorization_header.split(':')[0]
-        password = decoded_base64_authorization_header[len(email) + 1:]
+        if ':' not in decode_base64_authorization_header:
+            return (None, None)
+        email = decode_base64_authorization_header.split(':')[0]
+        password = decode_base64_authorization_header[len(email) + 1:]
         return (email, password)
+
+
+a = BasicAuth()
+
+print(a.extract_user_credentials(None))
+print(a.extract_user_credentials(89))
+print(a.extract_user_credentials("Holberton School"))
+print(a.extract_user_credentials("Holberton:School"))
+print(a.extract_user_credentials("bob@gmail.com:toto1234"))
