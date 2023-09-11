@@ -24,7 +24,9 @@ class Auth:
             return True
         if excluded_paths == [] or excluded_paths is None:
             return True
-        if path in excluded_paths or path + '/' in excluded_paths:
+        if path in \
+                excluded_paths or path + '/' in \
+                excluded_paths or path.startswith("/api/v1/stat*"):
             return False
 
         return True
