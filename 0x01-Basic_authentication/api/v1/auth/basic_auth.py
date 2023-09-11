@@ -67,12 +67,3 @@ class BasicAuth(Auth):
         email = decode_base64_authorization_header.split(':')[0]
         password = decode_base64_authorization_header[len(email) + 1:]
         return (email, password)
-
-
-a = BasicAuth()
-
-print(a.extract_user_credentials(None))
-print(a.extract_user_credentials(89))
-print(a.extract_user_credentials("Holberton School"))
-print(a.extract_user_credentials("Holberton:School"))
-print(a.extract_user_credentials("bob@gmail.com:toto1234"))
