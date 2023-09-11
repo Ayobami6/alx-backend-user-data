@@ -3,7 +3,7 @@
 """
 from .auth import Auth
 import base64
-from typing import Tuple
+from typing import TypeVar
 from models.user import User
 
 
@@ -15,7 +15,7 @@ class BasicAuth(Auth):
             self, authorization_header: str) -> str:
         """Base 64 extraction module
 
-        Args:
+        Args:s
             authorization_header (str): Authorization header
 
         Returns:
