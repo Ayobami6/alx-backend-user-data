@@ -5,9 +5,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import User
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm import Session
 
-from user import Base
+from user import Base, User
 
 
 class DB:
@@ -38,3 +40,27 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """ Find user by some crtain criteria
+
+        Args:
+            session (Session): db session object
+            **kwargs: criteria to filter by
+
+        Returns:
+            User: first user that meets the criteria
+
+        Raises:
+            InvalidRequestError: Description
+            NoResultFound: Description
+        """
+        for k in kwargs.keys():
+            if k not in User.__dict__.keys():
+                raise InvalidRequestError
+        query = self._session.query(User).filter_by(**kwargs)
+        # get the first row of user
+        user = query.first()
+        if user is None:
+            raise NoResultFound
+        return user
