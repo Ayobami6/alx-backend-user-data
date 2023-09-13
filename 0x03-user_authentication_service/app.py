@@ -37,7 +37,7 @@ def register_user() -> dict:
         user = AUTH.register_user(email, passwd)
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
-    return jsonify({"email": f"{email}", "message": "user created"}), 201
+    return jsonify({"email": f"{email}", "message": "user created"})
 
 
 if __name__ == "__main__":
