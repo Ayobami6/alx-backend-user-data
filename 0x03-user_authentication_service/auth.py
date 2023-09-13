@@ -3,7 +3,7 @@
 """
 
 
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw, gensalt, checkpw
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
@@ -36,6 +36,22 @@ class Auth:
             user = self._db.add_user(email, hashed_password)
             return user
         raise ValueError(f"User {email} already exists")
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Check if password is correct to validate login
+
+        Args:
+            email (str): User email
+            password (str): User password
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return False
+        password = password.encode('utf-8')
+        if checkpw(password, user.hashed_password):
+            return True
+        return False
 
 
 def _hash_password(password: str) -> bytes:

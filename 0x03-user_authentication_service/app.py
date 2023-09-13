@@ -31,8 +31,6 @@ def register_user() -> dict:
     data = request.form
     email = data['email']
     passwd = data['password']
-    # hash the password
-    # hashed_password = AUTH._hash_password(passwd)
     try:
         user = AUTH.register_user(email, passwd)
     except ValueError:
