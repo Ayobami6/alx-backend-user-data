@@ -22,6 +22,11 @@ def home() -> dict:
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def register_user() -> dict:
+    """ Register user endpoint
+
+    Returns:
+        dict: json response
+    """
     # get the json payload data
     data = request.form
     email = data['email']
