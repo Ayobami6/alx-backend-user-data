@@ -54,6 +54,24 @@ class Auth:
             return True
         return False
 
+    def create_session(self, email: str) -> str:
+        """ create a session
+
+        Args:
+            email (str): user's email
+
+        Returns:
+            str: session id or none if user doesn't exist
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            uid = _generate_uuid()
+            setattr(user, "session_id", uid)
+            self._db._session.commit()
+            return user.session_id
+        except NoResultFound:
+            return None
+
 
 def _generate_uuid() -> str:
     """ Generate unique identifier
